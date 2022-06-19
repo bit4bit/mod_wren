@@ -1,0 +1,19 @@
+TAG=mod_wren:build
+
+
+.PHONY: docker-image
+docker-image: check-env
+	docker build . -t $(TAG) --build-arg SIGNALWIRE_LOGIN=$(SIGNALWIRE_LOGIN) --build-arg SIGNALWIRE_PASSWORD=$(SIGNALWIRE_PASSWORD)
+
+.PHONY: shell
+shell:
+	docker run --rm --network=host --privileged -v $(PWD):/usr/src/mod_wren -ti $(TAG) bash
+
+check-env:
+ifndef SIGNALWIRE_LOGIN
+	$(error SIGNALWIRE_LOGIN is undefined)
+endif
+
+ifndef SIGNALWIRE_PASSWORD
+	$(error SIGNALWIRE_PASSWRD is undefined)
+endif
