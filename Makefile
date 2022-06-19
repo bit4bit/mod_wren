@@ -1,10 +1,10 @@
 MODNAME=mod_wren.so
-MODOBJ=mod_wren.o
+MODOBJ=mod_wren.o /usr/src/wren/amalgamation/wren.c
 MODCFLAGS=-Wall -Werror
 TESTS=test/test_*.c
 
 CC=gcc
-CFLAGS=$(MODCFLAGS) `pkg-config freeswitch --cflags`
+CFLAGS=$(MODCFLAGS) `pkg-config freeswitch --cflags` -I/usr/src/wren/amalgamation/
 LDFLAGS=`pkg-config freeswitch --libs`
 
 .PHONY: all

@@ -10,11 +10,19 @@ FST_CORE_BEGIN("conf")
         }
       FST_SETUP_END();
       
-      FST_TEST_BEGIN(curl_test)
+      FST_TEST_BEGIN(run_script_test)
         {
-          printf("RUNNING TEST\n");
-                                
-          fst_requires(1 == 2)
+          switch_stream_handle_t stream = { 0 };
+
+          SWITCH_STANDARD_STREAM(stream);
+
+          switch_api_execute("wrenrun", "test.wren", NULL, &stream);
+          
+          if (stream.data) {
+            switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "WREN DATA: %s\n", (char *)stream.data);
+            fst_check(strstr(stream.data, "+OK") == stream.data);
+            free(stream.data);
+          }
         }
       FST_TEST_END();
 
