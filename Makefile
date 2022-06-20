@@ -14,7 +14,7 @@ $(MODNAME): $(MODOBJ)
 	$(CC) -shared -o $@ $(MODOBJ) $(LDFLAGS)
 
 .c.o: $<
-	$(CC)  -fPIC -o $@ -c $<
+	$(CC) $(CFLAGS) -fPIC -o $@ -c $<
  
 .PHONY: clean
 clean:
@@ -30,4 +30,4 @@ install: $(MODNAME)
 
 .PHONY: check
 check: $(TESTS) .libs/mod_wren.so
-	$(CC) $(CFLAGS) -DSWITCH_TEST_BASE_DIR_FOR_CONF=\"/usr/src/mod_wren/test\" -DSWITCH_TEST_BASE_DIR_OVERRIDE=\"/usr/src/mod_wren/test\" -o .check $(TESTS) $(LDFLAGS) /usr/lib/libfreeswitch.so && ./.check
+	$(CC) $(CFLAGS) -DSWITCH_TEST_BASE_DIR_FOR_CONF=\"/usr/src/mod_wren/test\" -DSWITCH_TEST_BASE_DIR_OVERRIDE=\"/usr/src/mod_wren/test\" -o .check $(TESTS) $(LDFLAGS) && ./.check
