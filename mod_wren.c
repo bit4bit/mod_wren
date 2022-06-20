@@ -13,7 +13,7 @@ SWITCH_MODULE_DEFINITION(mod_wren, mod_wren_load, mod_wren_shutdown, NULL);
 
 SWITCH_STANDARD_API(wrenrun_api)
 {
-  return wren_parse_and_interpret(cmd, stream);
+  return wren_run_file(cmd, stream);
 }
 
 SWITCH_MODULE_LOAD_FUNCTION(mod_wren_load)
