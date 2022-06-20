@@ -1,11 +1,21 @@
 #include "wren_wrap.h"
 #include <vm.h>
 
-switch_status_t wren_parse_and_interpret(const char* filename, switch_stream_handle_t *stream)
+switch_status_t wren_parse_and_interpret(const char *filename, switch_stream_handle_t *stream)
 {
   WrenInterpretResult result;
+  char *file = (char*) filename;
 
-  result = runFile("test/test.wren", stream);
+  // try run file from freeswitch scripts directory
+  if (!switch_is_file_path(file)) {
+    char *fdup = NULL;
+    fdup = switch_mprintf("%s/%s", SWITCH_GLOBAL_dirs.script_dir, file);
+    switch_assert(fdup);
+    file = fdup;
+  }
+
+  switch_assert(file);
+  result = runFile(file, stream);
   
   switch(result) {
   case WREN_RESULT_COMPILE_ERROR:
