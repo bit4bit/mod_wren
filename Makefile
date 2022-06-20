@@ -4,12 +4,20 @@ MODCFLAGS=-Wall -Werror
 TESTS=test/test_*.c
 
 CC=gcc
-CFLAGS=`pkg-config freeswitch --cflags` -I/usr/src/wren/amalgamation/
+CFLAGS=`pkg-config freeswitch --cflags`
 LDFLAGS=`pkg-config freeswitch --libs`
 
 .PHONY: all
 all: $(MODNAME)
  
+
+wren-base/bin/wren_cli.a:  wren-base/src/freeswitch/*.c wren-base/src/module/*
+	cd wren-base/projects/make.freeswitch && $(MAKE)
+wren_cli.a: wren-base/bin/wren_cli.a
+	cp wren-base/bin/wren_cli.a $@
+wren_wrap.o: wren_wrap.c
+	$(CC) -Iwren-base/deps/wren/include -Iwren-base/src/freeswitch $(CFLAGS) -fPIC -o $@ -c $<
+
 $(MODNAME): $(MODOBJ)
 	$(CC) -shared -o $@ $(MODOBJ) $(LDFLAGS)
 
@@ -19,12 +27,14 @@ $(MODNAME): $(MODOBJ)
 .PHONY: clean
 clean:
 	rm -f $(MODNAME) $(MODOBJ)
- 
+	rm -rf wren-base/projects/make.freeswitch/obj
+	rm -rf wren-base/bin/*
+
 .PHONY: install
 install: $(MODNAME)
 	install $(MODNAME) $(FS_MODULES)
 
-.libs/mod_wren.so: $(MODOBJ)
+.libs/mod_wren.so: $(MODOBJ) wren_cli.a
 	mkdir -p .libs
 	$(CC) $(MODCFLAGS) $(CFLAGS) -fPIC -shared -o $@ $^ $(LDFLAGS)
 
