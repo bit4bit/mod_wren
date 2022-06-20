@@ -26,6 +26,15 @@ FST_CORE_BEGIN("conf")
         }
       FST_TEST_END();
 
+      FST_TEST_BEGIN(Freeswitch_consoleLog)
+        {
+          switch_stream_handle_t stream = { 0 };
+
+          SWITCH_STANDARD_STREAM(stream);
+          fst_check(switch_api_execute("wrenrun", "freeswitchConsoleLog.wren", NULL, &stream) == SWITCH_STATUS_SUCCESS);
+        }
+      FST_TEST_END();
+
       FST_TEARDOWN_BEGIN()
         {
         }

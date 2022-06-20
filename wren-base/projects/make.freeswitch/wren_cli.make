@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -I/usr/include/freeswitch -I../../src/freeswitch -I../../src/module -I../../deps/wren/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
+INCLUDES += -I/usr/include/freeswitch -I../../src/freeswitch -I../../src/module -I../../src/module-freeswitch -I../../deps/wren/include -I../../deps/wren/src/vm -I../../deps/wren/src/optional -I../../deps/libuv/include -I../../deps/libuv/src
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -fPIC -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -153,6 +153,8 @@ OBJECTS += $(OBJDIR)/wren_primitive.o
 OBJECTS += $(OBJDIR)/wren_utils.o
 OBJECTS += $(OBJDIR)/wren_value.o
 OBJECTS += $(OBJDIR)/wren_vm.o
+
+OBJECTS += $(OBJDIR)/freeswitch.o
 
 # Rules
 # #############################################
@@ -371,6 +373,10 @@ $(OBJDIR)/scheduler.o: ../../src/module/scheduler.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/timer1.o: ../../src/module/timer.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+
+$(OBJDIR)/freeswitch.o: ../../src/module-freeswitch/freeswitch.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

@@ -11,7 +11,7 @@ LDFLAGS=`pkg-config freeswitch --libs`
 all: $(MODNAME)
  
 
-wren-base/bin/wren_cli.a:  wren-base/src/freeswitch/*.c wren-base/src/module/*
+wren-base/bin/wren_cli.a:  wren-base/src/freeswitch/*.c wren-base/src/module/* wren-base/src/module-freeswitch/*
 	cd wren-base/projects/make.freeswitch && $(MAKE)
 wren_cli.a: wren-base/bin/wren_cli.a
 	cp wren-base/bin/wren_cli.a $@
