@@ -26,6 +26,10 @@ FST_CORE_BEGIN("conf")
         }
       FST_TEST_END();
 
+      // TODO(bit4bit) how can we test it?
+      // - using event system?
+      // - capturing the log printf?
+      //switch_event_bind("log", SWITCH_EVENT_LOG, NULL, 
       FST_TEST_BEGIN(Freeswitch_consoleLog)
         {
           switch_stream_handle_t stream = { 0 };

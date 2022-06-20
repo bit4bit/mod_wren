@@ -16,8 +16,8 @@ static void consoleLog(const char *level_str, const char *msg)
 
 void freeswitchConsoleLog(WrenVM *vm)
 {
-  const char *level = wrenGetSlotString(vm, 0);
-  const char *msg = wrenGetSlotString(vm, 1);
+  const char *level = wrenGetSlotString(vm, 1);
+  const char *msg = wrenGetSlotString(vm, 2);
 
   consoleLog(level, msg);
 }
