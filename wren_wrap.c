@@ -1,7 +1,7 @@
 #include "wren_wrap.h"
 #include <vm.h>
 
-switch_status_t wren_run_file(const char *filename, switch_stream_handle_t *stream)
+switch_status_t wren_run_file(const char *filename, freeswitch_t *fs)
 {
   WrenInterpretResult result;
   char *file = (char*) filename;
@@ -15,7 +15,7 @@ switch_status_t wren_run_file(const char *filename, switch_stream_handle_t *stre
   }
 
   switch_assert(file);
-  result = runFile(file, stream);
+  result = runFile(file, fs);
   
   switch(result) {
   case WREN_RESULT_COMPILE_ERROR:

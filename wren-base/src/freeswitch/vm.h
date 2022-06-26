@@ -6,8 +6,13 @@
 #include "uv.h"
 #include "wren.h"
 
+typedef struct {
+  switch_core_session_t *session;
+  switch_stream_handle_t *stream;
+} freeswitch_t;
+
 // Executes the Wren script at [path] in a new VM.
-WrenInterpretResult runFile(const char* path, switch_stream_handle_t *stream);
+WrenInterpretResult runFile(const char* path, freeswitch_t *stream);
 
 // Runs the Wren interactive REPL.
 WrenInterpretResult runRepl();

@@ -16,7 +16,7 @@ wren-base/bin/wren_cli.a:  wren-base/src/freeswitch/*.c wren-base/src/module/* w
 wren_cli.a: wren-base/bin/wren_cli.a
 	cp wren-base/bin/wren_cli.a $@
 wren_wrap.o: wren_wrap.c
-	$(CC) -Iwren-base/deps/wren/include -Iwren-base/src/freeswitch $(CFLAGS) -fPIC -o $@ -c $<
+	$(CC) -Iwren-base/deps/libuv/include -Iwren-base/deps/wren/include -Iwren-base/src/freeswitch $(CFLAGS) -fPIC -o $@ -c $<
 
 $(MODNAME): $(MODOBJ)
 	$(CC) -shared -o $@ $(MODOBJ) $(LDFLAGS)

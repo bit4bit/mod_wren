@@ -15,6 +15,7 @@ SWITCH_STANDARD_API(wrenrun_api)
 {
   freeswitch_t fs = {0};
   fs.stream = stream;
+  fs.session = session;
 
   return wren_run_file(cmd, &fs);
 }

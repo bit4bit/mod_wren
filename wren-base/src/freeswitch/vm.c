@@ -245,10 +245,11 @@ static WrenForeignClassMethods bindForeignClass(
 
 static void writeFn(WrenVM* vm, const char* text)
 {
-  switch_stream_handle_t *stream = wrenGetUserData(vm);
-  assert(stream != NULL);
+  freeswitch_t *fs = wrenGetUserData(vm);
+  assert(fs != NULL);
+  assert(fs->stream != NULL);
 
-  stream->write_function(stream, text);
+  fs->stream->write_function(fs->stream, text);
 }
 
 static void reportError(WrenVM* vm, WrenErrorType type,
