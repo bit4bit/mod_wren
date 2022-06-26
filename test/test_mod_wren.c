@@ -16,7 +16,7 @@ FST_CORE_BEGIN("conf")
 
           SWITCH_STANDARD_STREAM(stream);
 
-          switch_api_execute("wrenrun", "test.wren", NULL, &stream);
+          switch_api_execute("wrenrun", "run_script_test.wren", NULL, &stream);
           
           if (stream.data) {
             switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "WREN DATA: %s\n", (char *)stream.data);
@@ -30,12 +30,12 @@ FST_CORE_BEGIN("conf")
       // - using event system?
       // - capturing the log printf?
       //switch_event_bind("log", SWITCH_EVENT_LOG, NULL, 
-      FST_TEST_BEGIN(Freeswitch_consoleLog)
+      FST_TEST_BEGIN(freeswitch_consoleLog)
         {
           switch_stream_handle_t stream = { 0 };
 
           SWITCH_STANDARD_STREAM(stream);
-          fst_check(switch_api_execute("wrenrun", "freeswitchConsoleLog.wren", NULL, &stream) == SWITCH_STATUS_SUCCESS);
+          fst_check(switch_api_execute("wrenrun", "freeswitch_consoleLog.wren", NULL, &stream) == SWITCH_STATUS_SUCCESS);
         }
       FST_TEST_END();
 
@@ -45,7 +45,7 @@ FST_CORE_BEGIN("conf")
 
           SWITCH_STANDARD_STREAM(stream);
 
-          switch_api_execute("wrenrun", "test-api.wren", NULL, &stream);
+          switch_api_execute("wrenrun", "api_test.wren", NULL, &stream);
           
           if (stream.data) {
             switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_INFO, "WREN DATA: %s\n", (char *)stream.data);
