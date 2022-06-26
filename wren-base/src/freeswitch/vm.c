@@ -307,7 +307,7 @@ static void freeVM()
   if (wrenModulesDirectory != NULL) pathFree(wrenModulesDirectory);
 }
 
-WrenInterpretResult runFile(const char* path, switch_stream_handle_t *stream)
+WrenInterpretResult runFile(const char* path, freeswitch_t *fs)
 {
   char* source = readFile(path);
   if (source == NULL)
@@ -344,7 +344,7 @@ WrenInterpretResult runFile(const char* path, switch_stream_handle_t *stream)
   pathFree(directory);
   
   initVM();
-  wrenSetUserData(vm, stream);
+  wrenSetUserData(vm, fs);
 
   WrenInterpretResult result = wrenInterpret(vm, module->chars, source);
 

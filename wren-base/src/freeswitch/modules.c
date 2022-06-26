@@ -57,6 +57,7 @@ extern void timerStartTimer(WrenVM* vm);
 
 // Freeswitch
 extern void freeswitchConsoleLog(WrenVM *vm);
+extern void freeswitchApiExecute(WrenVM *vm);
 
 // The maximum number of foreign methods a single class defines. Ideally, we
 // would use variable-length arrays for each class in the table below, but
@@ -201,6 +202,9 @@ static ModuleRegistry modules[] =
   MODULE(freeswitch)
     CLASS(Freeswitch)
       STATIC_METHOD("consoleLog(_,_)", freeswitchConsoleLog)
+    END_CLASS
+    CLASS(FreeswitchAPI)
+      METHOD("execute(_,_)", freeswitchApiExecute)
     END_CLASS
   END_MODULE
   SENTINEL_MODULE

@@ -2,6 +2,16 @@
 // from `src/module-freeswitch/freeswitch.wren` using `util/wren_to_c_string.py`
 
 static const char* freeswitchModuleSource =
+"class FreeswitchAPI {\n"
+"      construct new() {\n"
+"      }\n"
+"\n"
+"      foreign execute(api, arg)\n"
+"}\n"
+"\n"
 "class Freeswitch {\n"
 "      foreign static consoleLog(level, msg)\n"
+"      static API() {\n"
+"        return FreeswitchAPI.new()\n"
+"      }\n"
 "}\n";
